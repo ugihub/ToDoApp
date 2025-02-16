@@ -104,11 +104,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Fungsi untuk menambahkan/memperbarui acara di Google Calendar
+  // Function to add or update an event in Google Calendar
   async function updateGoogleCalendar(task, action = "add") {
     const deadlineDate = new Date(task.deadline);
     const startDate = deadlineDate.toISOString();
-    const endDate = new Date(deadlineDate.getTime() + 1 * 60 * 60 * 1000).toISOString(); // 1 jam setelah deadline
+    const endDate = new Date(deadlineDate.getTime() + 1 * 60 * 60 * 1000).toISOString(); // 1 hour after deadline
 
     console.log("Sending update request with data:", {
       eventId: task.eventId,
@@ -119,11 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     try {
-      const response = await fetch(`http://localhost:3000/${action}-event`, {
+      const response = await fetch(`https://todoapp-beta-plum.vercel.app/api/${action}-event`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          eventId: task.eventId, // Pastikan event ID dikirim
+          eventId: task.eventId, // Required for updates
           summary: task.name,
           description: task.description,
           startDate,
@@ -132,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
 
       const result = await response.json();
+      console.log("Backend Response:", result);
 
       if (!result.success) {
         alert(
@@ -139,8 +140,8 @@ document.addEventListener("DOMContentLoaded", () => {
         );
       } else {
         if (action === "add") {
-          task.eventId = result.eventId; // Simpan event ID dari respons backend
-          saveTasks(); // Simpan kembali ke localStorage
+          task.eventId = result.eventId; // Save event ID from backend response
+          saveTasks(); // Save tasks back to localStorage
         }
       }
     } catch (error) {
@@ -151,29 +152,42 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Event listener untuk form tambah tugas
+  // Event listener for form submission
   todoForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    // Combine date and time inputs into a single ISO string
+    const deadlineDateTime = `${taskDeadlineDateInput.value}T${taskDeadlineTimeInput.value}`;
+    const deadlineDate = new Date(deadlineDateTime);
+
+    // Validate input fields
+    if (!taskNameInput.value || !taskDescriptionInput.value || isNaN(deadlineDate.getTime())) {
+      alert("Harap lengkapi semua field dengan format yang benar.");
+      return;
+    }
+
+    // Create a new task object
     const task = {
       name: taskNameInput.value,
       description: taskDescriptionInput.value,
-      deadline: `${taskDeadlineDateInput.value}T${taskDeadlineTimeInput.value}`,
+      deadline: deadlineDate.toISOString(),
     };
 
+    // Add the task to the tasks array
     tasks.push(task);
     saveTasks();
     renderTasks();
 
-    // Tambahkan tugas ke Google Calendar
+    // Add the task to Google Calendar
     await updateGoogleCalendar(task);
 
-    // Reset form
+    // Reset the form
     taskNameInput.value = "";
     taskDescriptionInput.value = "";
     taskDeadlineDateInput.value = "";
     taskDeadlineTimeInput.value = "";
   });
+
 
   // Fungsi untuk menghapus tugas
   window.deleteTask = async (index) => {
