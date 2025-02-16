@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 });
 
 // Endpoint untuk mengarahkan pengguna ke halaman otorisasi Google
-app.get("/auth/google", (req, res) => {
+app.get("/api/auth-google", (req, res) => {
   const authUrl = oauth2Client.generateAuthUrl({
     access_type: "offline", // Untuk mendapatkan refresh token
     scope: [
@@ -41,7 +41,7 @@ app.get("/auth/google", (req, res) => {
 });
 
 // Endpoint untuk menangani callback otorisasi Google
-app.get("/oauth2callback", async (req, res) => {
+app.get("/api/oauth2callback", async (req, res) => {
   const { code } = req.query;
   if (!code) {
     return res.status(400).send("Authorization code is missing.");
@@ -91,7 +91,7 @@ async function ensureAccessToken() {
 }
 
 // Endpoint untuk menambahkan acara ke Google Calendar
-app.post("/add-event", async (req, res) => {
+app.post("/api/add-event", async (req, res) => {
   const { summary, description, startDate, endDate } = req.body;
 
   if (!summary || !description || !startDate || !endDate) {
@@ -128,7 +128,7 @@ app.post("/add-event", async (req, res) => {
 });
 
 // Endpoint untuk menghapus acara dari Google Calendar
-app.post("/delete-event", async (req, res) => {
+app.post("/api/delete-event", async (req, res) => {
   const { eventId } = req.body;
 
   if (!eventId) {
