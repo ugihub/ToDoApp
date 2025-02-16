@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="Assets/css/style.css">
+</head>
+
+<body>
+    <!-- Navbar Toggle Button -->
+    <button id="menu-toggle" class="menu-toggle">☰</button>
+
+    <!-- Side Navbar -->
+    <div class="sidebar" id="sidebar">
+        <button id="close-sidebar" class="close-sidebar">×</button>
+        <h2>Menu</h2>
+        <ul>
+            <li><a href="profile.html">Profile</a></li>
+            <li><a href="#" id="logout-button">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>To-Do List App</h1>
+
+        <!-- Card Container -->
+        <div class="card-container">
+            <!-- Card 1: Input Acara -->
+            <div class="card" id="add-event">
+                <h2>Tambah Acara</h2>
+                <form id="todo-form">
+                    <input type="text" id="task-name" placeholder="Nama Tugas" required>
+                    <textarea id="task-description" placeholder="Deskripsi Tugas"></textarea>
+                    <input type="date" id="task-deadline-date" required>
+                    <input type="time" id="task-deadline-time" required>
+                    <button type="submit">Tambah Tugas</button>
+                </form>
+            </div>
+
+            <!-- Card 2: Daftar Acara -->
+            <div class="card" id="event-list">
+                <h2>Daftar Acara</h2>
+                <ul id="todo-list"></ul>
+            </div>
+
+            <!-- Card 3: Waktu Sisa Deadline -->
+            <div class="card" id="countdown">
+                <h2>Waktu Sisa Deadline</h2>
+                <ul id="deadline-countdown"></ul>
+            </div>
+
+            <!-- Modal Edit -->
+            <div id="edit-modal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2 style="color: #ff6f61 ; margin-bottom: 20px;">Edit Tugas</h2>
+                    <form id="edit-form">
+                        <input type="text" id="edit-task-name" placeholder="Nama Tugas" required>
+                        <textarea id="edit-task-description" placeholder="Deskripsi Tugas"></textarea>
+                        <input type="date" id="edit-task-deadline-date" required>
+                        <input type="time" id="edit-task-deadline-time" required>
+                        <button type="submit">Simpan Perubahan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Assets/js/script.js"></script>
+</body>
+
+</html>

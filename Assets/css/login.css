@@ -1,0 +1,93 @@
+/* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body Styling with Background Image and Blur Effect */
+body {
+  font-family: "Arial", sans-serif;
+  background-image: url("https://images.unsplash.com/photo-1542831371-29b0f74f9713?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80"); /* Gambar latar belakang */
+  background-size: cover; /* Menutupi seluruh layar */
+  background-position: center; /* Pusatkan gambar */
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit; /* Mengambil gambar latar dari body */
+  filter: blur(8px); /* Efek blur */
+  z-index: -1; /* Letakkan di bawah konten */
+}
+
+/* Login Container */
+.login-container {
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7); /* Latar belakang semi-transparan */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Bayangan halus */
+  width: 100%;
+  max-width: 400px; /* Lebar maksimum kotak login */
+  z-index: 1; /* Pastikan konten di atas latar blur */
+}
+
+.login-container h1 {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ff6f61; /* Warna merah muda untuk judul */
+}
+
+.login-container p {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: #b3b3b3; /* Warna abu-abu muda untuk deskripsi */
+}
+
+/* Google Login Button */
+.google-login-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #4285f4; /* Warna biru khas Google */
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.google-login-button img {
+  margin-right: 10px; /* Jarak antara logo Google dan teks */
+}
+
+.google-login-button:hover {
+  background-color: #357ae8; /* Warna biru lebih gelap saat hover */
+  transform: scale(1.05); /* Efek memperbesar tombol saat hover */
+}
+
+/* Animasi Fade-In untuk Halaman */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.login-container {
+  animation: fadeIn 1s ease-in-out;
+}

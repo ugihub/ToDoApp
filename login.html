@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="Assets/css/login.css">
+</head>
+
+<body>
+    <div class="login-container">
+        <h1>Selamat Datang!</h1>
+        <p>Untuk menggunakan aplikasi ini, silakan login dengan akun Google Anda.</p>
+        <a href="/auth/google" class="google-login-button">
+            <img src="Assets/images/google.png"
+                alt="Google Logo" width="20">
+            Login dengan Google
+        </a>
+    </div>
+
+    <script>
+        // Redirect to home if already logged in
+        document.addEventListener("DOMContentLoaded", () => {
+            const isLoggedIn = localStorage.getItem("isLoggedIn");
+            if (isLoggedIn) {
+                window.location.href = "/";
+            }
+        });
+    </script>
+</body>
+
+</html>
